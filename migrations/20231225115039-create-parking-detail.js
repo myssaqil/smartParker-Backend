@@ -2,15 +2,24 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Tokens', {
-      TOKEN_ID: {
+    await queryInterface.createTable('Parking_Details', {
+      PARKING_NUMBER: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      TOKEN_VALUE: {
+      PKG_HEAD_ID: {
+        type: Sequelize.INTEGER
+      },
+      LATITUDE: {
         type: Sequelize.STRING
+      },
+      LONGITUDE: {
+        type: Sequelize.STRING
+      },
+      STATUS:{
+        type: Sequelize.ENUM('ACTIVE', ''),
+        defaultValue: 'ACTIVE'
       },
       createdAt: {
         allowNull: false,
@@ -23,6 +32,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Tokens');
+    await queryInterface.dropTable('Parking_Details');
   }
 };

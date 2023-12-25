@@ -3,16 +3,16 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('TokenDevices', {
-      id: {
+      TKN_DVC_ID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      id_user: {
+      U_ID: {
         type: Sequelize.INTEGER
       },
-      token: {
+      TOKEN_VALUE: {
         type: Sequelize.TEXT
       },
       createdAt: {

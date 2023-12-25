@@ -3,39 +3,39 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Users', {
-      id: {
+      U_ID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
+      U_MAIL: {
         unique: true,
         type: Sequelize.STRING
       },
-      password: {
+      U_PASSWORD: {
         type: Sequelize.STRING
       },
-      imgProfileURL: {
+      U_IMG_BASE64: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      name: {
+      U_NAME: {
         type: Sequelize.STRING
       },
-      saldo: {
+      U_BALANCE: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
       },
-      role:{
-        type: Sequelize.ENUM('user', 'parker', 'trafficOfficer', 'admin'),
-        defaultValue: 'user'
+      U_ROLE:{
+        type: Sequelize.ENUM('USER', 'PARKER', 'ADMIN', 'STAFF'),
+        defaultValue: 'USER'
       },
-      isVerify:{
-        type: Sequelize.ENUM('true', 'false'),
-        defaultValue: 'false'
+      U_VERIFY_STATUS:{
+        type: Sequelize.ENUM('TRUE', 'FALSE'),
+        defaultValue: 'FALSE'
       },
-      verifyToken:{
+      U_VERIFY_TOKEN:{
         type: Sequelize.TEXT
       },
       createdAt: {

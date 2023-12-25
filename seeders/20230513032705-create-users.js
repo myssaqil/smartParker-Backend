@@ -4,30 +4,30 @@ const bcryptjs = require('bcryptjs')
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    const hashedPassword = bcryptjs.hashSync("password", 10)
+    const hashedPassword = bcryptjs.hashSync("smartparker", 10)
     await queryInterface.bulkInsert('Users', [
       {
-        id: 1,
-        name: 'Admin Zendmind',
-        email: 'admin@example.com',
-        password: hashedPassword,
-        role: 'admin',
-        saldo: 0,
-        verifyToken: "",
-        isVerify: "true",
+        U_ID: 1,
+        U_NAME: 'Admin',
+        U_MAIL: 'admin@example.com',
+        U_PASSWORD: hashedPassword,
+        U_ROLE: 'admin',
+        U_BALANCE: 0,
+        U_VERIFY_TOKEN: "",
+        U_VERIFY_STATUS: "TRUE",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        id: 2,
-        name: 'Meyssa Aqila Adikara',
-        email: 'qilaadikara3@gmail.com',
-        password: hashedPassword,
-        role: 'user',
-        saldo: 0,
-        verifyToken: "",
-        isVerify: "true",
-        imgProfileURL : 'img/users-profile/me.jpg',
+        U_ID: 2,
+        U_NAME: 'Meyssa Aqila Adikara',
+        U_MAIL: 'qilaadikara3@gmail.com',
+        U_PASSWORD: hashedPassword,
+        U_ROLE: 'user',
+        U_BALANCE: 0,
+        U_VERIFY_TOKEN: "",
+        U_VERIFY_STATUS: "true",
+        U_IMG_BASE64 : '',
         createdAt: new Date(),
         updatedAt: new Date(),
       }

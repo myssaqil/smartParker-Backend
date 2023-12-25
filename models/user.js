@@ -14,20 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    imgProfileURL:{
+    U_MAIL: DataTypes.STRING,
+    U_PASSWORD: DataTypes.STRING,
+    U_IMG_BASE64:{
       type: DataTypes.STRING,
     },
-    name: DataTypes.STRING,
-    saldo: {
+    U_NAME: DataTypes.STRING,
+    U_BALANCE: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
       allowNull: false,
     },
-    verifyToken: DataTypes.STRING,
-    role: DataTypes.ENUM('user', 'parker', 'trafficOfficer', 'admin'),
-    isVerify: DataTypes.ENUM('true', 'false'),
+    U_VERIFY_TOKEN: DataTypes.STRING,
+    U_ROLE: DataTypes.ENUM('USER', 'PARKER', 'ADMIN', 'STAFF'),
+    U_VERIFY_STATUS: DataTypes.ENUM('TRUE', 'FALSE'),
   }, {
     sequelize,
     modelName: 'User',

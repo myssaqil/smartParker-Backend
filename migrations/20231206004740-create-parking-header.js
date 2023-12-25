@@ -2,52 +2,49 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ParkingLocations', {
-      id: {
+    await queryInterface.createTable('ParkingHeader', {
+      PKG_HEAD_ID: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      PKG_NAME: {
         type: Sequelize.STRING
       },
-      imagePath: {
+      PKG_BANNER_BASE64: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
-      u_id: {
+      U_ID: {
         type: Sequelize.INTEGER
       },
-      street: {
+      //JALAN
+      PKG_STREET: {
         type: Sequelize.TEXT
       },
-      subLocality: {
+      //KECAMATAN
+      PKG_SUBLOCALITY: {
         type: Sequelize.STRING
       },
-      subAdministrativeArea: {
+      //KABUPATEN
+      PKG_SUB_ADMINISTRATIVE_AREA: {
         type: Sequelize.STRING
       },
-      latitude: {
+      //KODEPOS
+      PKG_POSTAL_CODE: {
         type: Sequelize.STRING
       },
-      longtitude: {
+      LATITUDE: {
         type: Sequelize.STRING
       },
-      slot: {
+      LONGITUDE: {
+        type: Sequelize.STRING
+      },
+      FEE: {
         type: Sequelize.INTEGER
       },
-      slotTotal: {
-        type: Sequelize.INTEGER
-      },
-      fee: {
-        type: Sequelize.INTEGER
-      },
-      byHour: {
-        type: Sequelize.ENUM('Y', 'N'),
-        defaultValue: 'N'
-      },
-      status:{
+      STATUS:{
         type: Sequelize.ENUM('ACTIVE', 'NO'),
         defaultValue: 'ACTIVE'
       },
@@ -62,6 +59,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('ParkingLocations');
+    await queryInterface.dropTable('ParkingHeader');
   }
 };
