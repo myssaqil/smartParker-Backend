@@ -30,6 +30,19 @@ module.exports = {
         U_IMG_BASE64 : '',
         createdAt: new Date(),
         updatedAt: new Date(),
+      },
+      {
+        U_ID: 3,
+        U_NAME: 'Kalam',
+        U_MAIL: 'kalam123@gmail.com',
+        U_PASSWORD: 'kalam123',
+        U_ROLE: 'user',
+        U_BALANCE: 0,
+        U_VERIFY_TOKEN: "",
+        U_VERIFY_STATUS: "true",
+        U_IMG_BASE64 : '',
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
       
     ], {})

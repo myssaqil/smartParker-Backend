@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
+    "serve": "nodemon app.js",
     "fresh": "npx sequelize-cli db:migrate:undo:all && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "keywords": [
@@ -22,7 +23,7 @@
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "express-validator": "^7.0.1",
     "firebase-admin": "^11.10.1",
@@ -35,5 +36,8 @@
     "sequelize": "^6.31.1",
     "socket.io": "^4.5.1",
     "xendit-node": "^1.21.16"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }

@@ -14,8 +14,8 @@ const path = require('path');
 const transporter = nodemailer.createTransport({
     service: 'Gmail', // layanan email yang digunakan
     auth: {
-      user: process.env.EMAIL, // email Anda
-      pass: process.env.PASSWORD // password email Anda
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
     }
   });
 
@@ -35,21 +35,31 @@ exports.register = async(req, res) => {
         const hashedPassword = bcryptjs.hashSync(password, 10)
 
         mUser.count({
-            where: { email: email },
+            where: { U_MAIL: email },
+            attributes: [ 'U_MAIL']
         }).then(async count =>{
             if(count > 0){
                 return responApi.v2respon400(req, res, "Email telah digunakan");
             } else{
                 orderCreate = await mUser.create({
-                    email: email,
-                    password: hashedPassword,
-                    name: name,
-                    verifyToken: ""
-                })
+                        U_MAIL: email,
+                        U_PASSWORD: hashedPassword,
+                        U_NAME: name,
+                        U_VERIFY_STATUS: ""
+                    },
+                    { fields: [
+                            'U_ID',
+                            'U_MAIL',
+                            'U_PASSWORD',
+                            'U_NAME',
+                            'U_VERIFY_STATUS'
+                        ]
+                    }
+                )
          
                 orderGet = await mUser.findOne({
-                     where: { id: orderCreate.id },
-                     attributes: [ 'email', 'isVerify', 'role', 'id' ]
+                     where: { U_ID: orderCreate.id },
+                     attributes: [ 'U_ID' ]
                 })
          
                  return responApi.v2respon200(req, res, 'Berhasil mendaftar', orderGet);
@@ -65,19 +75,20 @@ exports.login = async(req, res) => {
 
     try{
         var order = await mUser.findOne({ 
-            where: { email: email },
+            where: { U_MAIL: email },
+            attributes: ['U_ID', 'U_MAIL', 'U_PASSWORD', 'U_IMG_BASE64', 'U_NAME', 'U_BALANCE', 'U_VERIFY_TOKEN', 'U_ROLE', 'U_VERIFY_STATUS', 'createdAt', 'updatedAt']
         });
 
         if(order){
-            const validatePassword = bcryptjs.compareSync(password, order.password)
+            const validatePassword = bcryptjs.compareSync(password, order.U_PASSWORD)
 
             if(validatePassword){
                 const user = await mUser.findOne({ 
-                    where: { email: email },
-                    attributes: [ 'email', 'isVerify', 'role', 'id' ]
+                    where: { U_MAIL: email },
+                    attributes: [ 'U_MAIL', 'U_VERIFY_TOKEN', 'U_ROLE', 'U_ID', 'U_VERIFY_STATUS' ]
                 });
 
-                if(user.isVerify == "true"){
+                if(user.U_VERIFY_STATUS == "TRUE"){
                     const token = jwt.sign(
                         { user }, process.env.TOKEN_KEY,
                     );
@@ -88,14 +99,16 @@ exports.login = async(req, res) => {
     
                     await tokenModels.create(
                         {
-                            token: token,
-                        }
+                            TOKEN_VALUE: token,
+                        },
+                        { fields: [ 'TOKEN_ID', 'TOKEN_VALUE'] }
                     )
                     await mTokenDevice.create(
                         {
-                            id_user: user.id,
-                            token: tokenDvc
-                        }
+                            U_ID: user.U_ID,
+                            TOKEN_VALUE: tokenDvc
+                        },
+                        { fields: [ 'TKN_DVC_ID', 'TOKEN_VALUE'] }
                     )
     
                     return responApi.v2respon200(req, res, 'Berhasil masuk', response);
@@ -123,7 +136,10 @@ exports.tokenUser= async(req, res) =>{
     }
     token = token.replace("Bearer ", "");
     try {
-        const tokendb = await models.Token.findOne({ where: { token: token } });
+        const tokendb = await models.Token.findOne({ 
+            where: { TOKEN_VALUE: token },
+            attributes: [ 'TOKEN_VALUE', 'TOKEN_ID', 'createdAt', 'updatedAt' ]
+        });
         if (!tokendb) {
             return responApi.v2respon400(req, res, "Invalid Token", null);
         }
@@ -147,10 +163,10 @@ exports.sendVerifyEmail = async(req, res) => {
 
         await mUser.update(
             {
-                verifyToken: token
+                U_VERIFY_TOKEN: token,
             },
             {
-                where: { email: email}
+                where: { U_MAIL: email},
             }
         );
 
@@ -165,6 +181,7 @@ exports.sendVerifyEmail = async(req, res) => {
         };
          await transporter.sendMail(sendMail, (error, info) => {
         if (error) {
+            console.log('Email sent: ' + info, 'Error: ' + error);
             return responApi.v2respon200(req, res, "Gagal mengirim email verifikasi", null);
         } else {
             return responApi.v2respon200(req, res, "Berhasil mengirim email verifikasi", null);
@@ -184,16 +201,18 @@ exports.verifyEmail = async(req, res) => {
   
       await mUser.update(
             {
-                verifyToken: "",
-                isVerify: "true"
+                U_VERIFY_TOKEN: "",
+                U_VERIFY_STATUS: "TRUE"
             },
             {
-                where: { email: decodedToken.email}
+                where: { U_MAIL: decodedToken.email},
+                attributes: [ 'U_MAIL' ]
             }
         );
 
       res.send("Email telah berhasil diverifikasi, silahkan kembali ke aplikasi dan tunggu sebentar");
     } catch (error) {
+    console.log('Error: ' + error);
       res.send('Token tidak valid atau telah kadaluarsa.');
     }
   
