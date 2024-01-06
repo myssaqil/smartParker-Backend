@@ -18,7 +18,10 @@ exports.cekSession = async(req, res, next) => {
     token = token.replace("Bearer ", "");
 
     try {
-        const tokendb = await tokenModels.findOne({ where: { token: token } });
+        const tokendb = await tokenModels.findOne({ 
+            where: { TOKEN_VALUE: token },
+            attributes: ['TOKEN_VALUE']
+        });
         if (!tokendb) {
             return responApi.v2respon400(req, res, "Invalid Token", null);
         } else{
