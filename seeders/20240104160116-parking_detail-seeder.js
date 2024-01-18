@@ -34,6 +34,42 @@ module.exports = {
         TYPE: 'CAR',
         STATUS: 'USED'
       },
+      {
+        PARKING_NUMBER: 5,
+        PKG_HEAD_ID: 3,
+        TYPE: 'CAR',
+        STATUS: 'USED'
+      },
+      {
+        PARKING_NUMBER: 6,
+        PKG_HEAD_ID: 5,
+        TYPE: 'MOTORCYCLE',
+        STATUS: 'USED'
+      },
+      {
+        PARKING_NUMBER: 7,
+        PKG_HEAD_ID: 6,
+        TYPE: 'CAR',
+        STATUS: 'ACTIVATE'
+      },
+      {
+        PARKING_NUMBER: 8,
+        PKG_HEAD_ID: 7,
+        TYPE: 'CAR',
+        STATUS: 'ACTIVATE'
+      },
+      {
+        PARKING_NUMBER: 9,
+        PKG_HEAD_ID: 6,
+        TYPE: 'CAR',
+        STATUS: 'USED'
+      },
+      {
+        PARKING_NUMBER: 10,
+        PKG_HEAD_ID: 8,
+        TYPE: 'MOTORCYCLE',
+        STATUS: 'USED'
+      },
     ])
     /**
      * Add seed commands here.
