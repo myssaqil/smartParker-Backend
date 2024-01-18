@@ -16,12 +16,16 @@ module.exports = (sequelize, DataTypes) => {
   Parking_Detail.init({
     PARKING_NUMBER: DataTypes.INTEGER,
     PKG_HEAD_ID: DataTypes.INTEGER,
-    LATITUDE: DataTypes.STRING,
-    LONGITUDE: DataTypes.STRING,
-    STATUS: DataTypes.ENUM('ACTIVE', 'NO')
+    TYPE: DataTypes.ENUM('MOTORCYCLE', 'CAR', )
   }, {
     sequelize,
     modelName: 'Parking_Detail',
   });
+  Parking_Detail.associate = function (models) {
+    Parking_Detail.belongsTo(models.ParkingHeader, {
+      foreignKey: 'PKG_HEAD_ID',
+      as: 'ParkingHeader'
+    });
+  };
   return Parking_Detail;
 };

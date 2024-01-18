@@ -6,22 +6,60 @@ module.exports = {
       id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING
-      },
-      u_id: {
+        autoIncrement: true,
         type: Sequelize.INTEGER
       },
-      info: {
-        type: Sequelize.STRING
-      },
-      amount: {
+      U_ID: {
         type: Sequelize.INTEGER
       },
-      status:{
-        type: Sequelize.ENUM('ONGOING', 'FAILED', 'DONE')
+      LICENSE_PLATE: {
+        type: Sequelize.STRING
       },
-      paymentType:{
-        type: Sequelize.ENUM('PAIDOFF', 'BILL')
+      TRX_HEAD_ID: {
+        type: Sequelize.INTEGER,
+        unique: true
+      },
+      PARKING_ID: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      INFO: {
+        type: Sequelize.STRING
+      },
+      DATE_START: {
+        allowNull: true,
+        type: Sequelize.DATE
+      },
+      DATE_END: {
+        allowNull: false,
+        type: Sequelize.DATE
+      },
+      DATE_USER_OUT: {
+        allowNull: true,
+        type: Sequelize.DATE
+      },
+      DATE_USER_IN: {
+        allowNull: true,
+        type: Sequelize.DATE
+      },
+      UPDATE_SLOT_START:{
+        type: Sequelize.ENUM('Y', 'N'),
+        allowNull: false,
+        defaultValue: 'N',
+      },
+      UPDATE_SLOT_END:{
+        type: Sequelize.ENUM('Y', 'N'),
+        allowNull: false,
+        defaultValue: 'N',
+      },
+      TYPE:{
+        type: Sequelize.ENUM('MOTORCYCLE', 'CAR'),
+        allowNull: false,
+      },
+      STATUS:{
+        type: Sequelize.ENUM('ONGOING',  'WAITINGP', 'FAILED', 'DONE'),
+        defaultValue:'WAITINGP',
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,

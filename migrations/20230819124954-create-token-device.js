@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('TokenDevices', {
-      TKN_DVC_ID: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,

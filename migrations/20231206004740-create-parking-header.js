@@ -3,7 +3,7 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('ParkingHeaders', {
-      PKG_HEAD_ID: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
@@ -43,6 +43,28 @@ module.exports = {
       },
       FEE: {
         type: Sequelize.INTEGER
+      },
+      PKG_CLOSE_TIME: {
+        type: Sequelize.TIME,
+        allowNull: true
+      },
+      PKG_OPEN_TIME: {
+        type: Sequelize.TIME,
+        allowNull: true
+      },
+      TOTAL_SLOT_CAR: {
+        type: Sequelize.INTEGER
+      },
+      TOTAL_USED_CAR: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
+      },
+      TOTAL_SLOT_MOTORCYCLE: {
+        type: Sequelize.INTEGER
+      },
+      TOTAL_USED_MOTORCYCLE: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       STATUS:{
         type: Sequelize.ENUM('ACTIVE', 'NO'),

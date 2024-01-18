@@ -9,16 +9,28 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      transactionId: {
-        type: Sequelize.STRING
+
+      //Ketikapakaixendit
+      TRX_ID: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: true,
       },
-      transactionType:{
+      AMOUNT: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      TRX_TYPE:{
         type: Sequelize.ENUM( 'BILLPAYMENT','PARKING' ,'TOPUP'),
       },
       //SAAT SET STATUS AKAN MEMBUAT DATA BODY KECUALI PENDING!!!
-      status:{
-        type: Sequelize.ENUM( 'FAILED','SUCCESS', 'PENDING'),
+      STATUS:{
+        type: Sequelize.ENUM( 'FAILED','SUCCESS', 'PENDING', 'REFFUND', 'REFFUND-DONE'),
         defaultValue: 'PENDING'
+      },
+      //Payment
+      PAY:{
+        type: Sequelize.ENUM( 'CASH','PAYLATER', 'XENDIT'),
       },
       createdAt: {
         allowNull: false,

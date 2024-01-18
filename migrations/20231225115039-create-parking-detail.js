@@ -3,23 +3,25 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Parking_Details', {
+      id: {
+        allowNull: false,
+        autoIncrement: true,
+        primaryKey: true,
+        type: Sequelize.INTEGER
+      },
       PARKING_NUMBER: {
         allowNull: false,
-        primaryKey: true,
         type: Sequelize.INTEGER
       },
       PKG_HEAD_ID: {
         type: Sequelize.INTEGER
       },
-      LATITUDE: {
-        type: Sequelize.STRING
-      },
-      LONGITUDE: {
-        type: Sequelize.STRING
-      },
       STATUS:{
-        type: Sequelize.ENUM('ACTIVE', ''),
+        type: Sequelize.ENUM('ACTIVE', 'USED', 'CLOSE'),
         defaultValue: 'ACTIVE'
+      },
+      TYPE:{
+        type: Sequelize.ENUM('MOTORCYCLE', 'CAR'),
       },
       createdAt: {
         allowNull: false,

@@ -7,7 +7,7 @@ module.exports = {
     const hashedPassword = bcryptjs.hashSync("smartparker", 10)
     await queryInterface.bulkInsert('Users', [
       {
-        U_ID: 1,
+        id: 1,
         U_NAME: 'Admin',
         U_MAIL: 'admin@example.com',
         U_PASSWORD: hashedPassword,
@@ -19,7 +19,7 @@ module.exports = {
         updatedAt: new Date(),
       },
       {
-        U_ID: 2,
+        id: 2,
         U_NAME: 'Meyssa Aqila Adikara',
         U_MAIL: 'qilaadikara3@gmail.com',
         U_PASSWORD: hashedPassword,
@@ -27,12 +27,12 @@ module.exports = {
         U_BALANCE: 0,
         U_VERIFY_TOKEN: "",
         U_VERIFY_STATUS: "true",
-        U_IMG_BASE64 : '',
+        U_IMG : 'img/users-profile/aqil.png',
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        U_ID: 3,
+        id: 3,
         U_NAME: 'Kalam',
         U_MAIL: 'kalam123@gmail.com',
         U_PASSWORD: hashedPassword,
@@ -40,7 +40,7 @@ module.exports = {
         U_BALANCE: 0,
         U_VERIFY_TOKEN: "",
         U_VERIFY_STATUS: "true",
-        U_IMG_BASE64 : '',
+        U_IMG : '',
         createdAt: new Date(),
         updatedAt: new Date(),
       }

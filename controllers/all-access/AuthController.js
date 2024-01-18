@@ -44,22 +44,20 @@ exports.register = async(req, res) => {
                 orderCreate = await mUser.create({
                         U_MAIL: email,
                         U_PASSWORD: hashedPassword,
-                        U_NAME: name,
-                        U_VERIFY_STATUS: ""
+                        U_NAME: name
                     },
                     { fields: [
-                            'U_ID',
+                            'id',
                             'U_MAIL',
                             'U_PASSWORD',
                             'U_NAME',
-                            'U_VERIFY_STATUS'
                         ]
                     }
                 )
          
                 orderGet = await mUser.findOne({
-                     where: { U_ID: orderCreate.id },
-                     attributes: [ 'U_ID' ]
+                     where: { id: orderCreate.id },
+                     attributes: [ 'U_MAIL' ]
                 })
          
                  return responApi.v2respon200(req, res, 'Berhasil mendaftar', orderGet);
@@ -76,7 +74,7 @@ exports.login = async(req, res) => {
     try{
         var order = await mUser.findOne({ 
             where: { U_MAIL: email },
-            attributes: ['U_ID', 'U_MAIL', 'U_PASSWORD', 'U_IMG_BASE64', 'U_NAME', 'U_BALANCE', 'U_VERIFY_TOKEN', 'U_ROLE', 'U_VERIFY_STATUS', 'createdAt', 'updatedAt']
+            attributes: ['id', 'U_MAIL', 'U_PASSWORD', 'U_IMG', 'U_NAME', 'U_BALANCE', 'U_VERIFY_TOKEN', 'U_ROLE', 'U_VERIFY_STATUS', 'createdAt', 'updatedAt']
         });
 
         if(order){
@@ -85,7 +83,7 @@ exports.login = async(req, res) => {
             if(validatePassword){
                 const user = await mUser.findOne({ 
                     where: { U_MAIL: email },
-                    attributes: [ 'U_MAIL', 'U_VERIFY_TOKEN', 'U_ROLE', 'U_ID', 'U_VERIFY_STATUS' ]
+                    attributes: [ 'U_MAIL', 'U_ROLE', 'id', 'U_VERIFY_STATUS' ]
                 });
 
                 if(user.U_VERIFY_STATUS == "TRUE"){
@@ -105,7 +103,7 @@ exports.login = async(req, res) => {
                     )
                     await mTokenDevice.create(
                         {
-                            U_ID: user.U_ID,
+                            id: user.id,
                             TOKEN_VALUE: tokenDvc
                         },
                         { fields: [ 'TKN_DVC_ID', 'TOKEN_VALUE'] }
@@ -141,7 +139,7 @@ exports.tokenUser= async(req, res) =>{
             attributes: [ 'TOKEN_VALUE', 'TOKEN_ID', 'createdAt', 'updatedAt' ]
         });
         if (!tokendb) {
-            return responApi.v2respon400(req, res, "Invalid Token", null);
+             return responApi.v2respon401(req, res, null);
         }
 
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
@@ -176,7 +174,7 @@ exports.sendVerifyEmail = async(req, res) => {
             subject: 'Verifikasi Email',
             html: `
             <p>Silakan klik tautan di bawah ini untuk memverifikasi email Anda:</p>
-            <a href="${process.env.APP_URL}auth/verify-email/${token}">Verifikasi Email</a>
+            <a href="${process.env.APP_URL}api/auth/verify-email/${token}">Verifikasi Email</a>
             `
         };
          await transporter.sendMail(sendMail, (error, info) => {
@@ -256,7 +254,7 @@ exports.uploadImgProfile = async(req, res) => {
     try {
         const tokendb = await tokenModels.findOne({ where: { token: token } });
         if (!tokendb) {
-            return responApi.v2respon400(req, res, "Invalid Token", null);
+             return responApi.v2respon401(req, res, null);
         } else{
             const timestamp = Date.now();
 
@@ -297,7 +295,7 @@ exports.isVerifyPermission = async(req, res, next) => {
     try {
         const tokendb = await tokenModels.findOne({ where: { token: token } });
         if (!tokendb) {
-            return responApi.v2respon400(req, res, "Invalid Token", null);
+             return responApi.v2respon401(req, res, null);
         }
 
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
@@ -345,6 +343,7 @@ exports.adminPermission = async (req, res, next) => {
 }
 
 exports.logOut = async(req, res, next) => {
+    var funcName = "logOut"
     let token = req.body.token || req.query.token || req.headers["authorization"];
     if (!token) {
         return responApi.v2respon400(req, res, 'Token dibutuhkan untuk kebutuhan authentikasi', null);
@@ -352,19 +351,19 @@ exports.logOut = async(req, res, next) => {
     token = token.replace("Bearer ", "");
     try {
         const decoded = jwt.verify(token, process.env.TOKEN_KEY);
-        const tokendb = await tokenModels.findOne({ where: { token: token } });
+        const tokendb = await tokenModels.findOne({ where: { TOKEN_VALUE: token } });
         if (!tokendb) {
-            return responApi.v2respon400(req, res, "Invalid Token", null);
+             return responApi.v2respon401(req, res, null);
         } else{
             await mTokenDevice.destroy({
                 where: {
-                    id_user: decoded.user.id,
-                    token: req.params.tokenDvc
+                    id: decoded.user.id,
+                    TOKEN_VALUE: req.params.tokenDvc
                 }
             })
             tokenModels.destroy({
                 where: {
-                  token: token,
+                  TOKEN_VALUE: token,
                 },
               }).then((rowsDeleted) => {
                 return responApi.v2respon200(req, res, "Berhasil untuk keluar", null);
@@ -376,11 +375,36 @@ exports.logOut = async(req, res, next) => {
 
         
     } catch (error) {
+        console.log('Error '+funcName+' => '+error)
+        return responApi.v2respon400(req, res, 'Internal Server Error', null);
+    }
+
+}
+exports.getSession = async(req, res, next) => {
+    var funcName = "getSession"
+    let token = req.body.token || req.query.token || req.headers["authorization"];
+    if (!token) {
+        return responApi.v2respon400(req, res, 'Token dibutuhkan untuk kebutuhan authentikasi', null);
+    }
+    token = token.replace("Bearer ", "");
+    try {
+        const decoded = jwt.verify(token, process.env.TOKEN_KEY);
+        const tokendb = await tokenModels.findOne({ where: { TOKEN_VALUE: token } });
+        if (!tokendb) {
+            return responApi.v2respon401(req, res, null);
+        } else{
+            return responApi.v2respon200(req, res, "Session ok", null);
+        }
+
+        
+    } catch (error) {
+        console.log('Error '+funcName+' => '+error)
         return responApi.v2respon400(req, res, 'Internal Server Error', null);
     }
 
 }
 exports.getUser = async(req, res, next) => {
+    var funcName = "getUser"
     let token = req.body.token || req.query.token || req.headers["authorization"];
     if (!token) {
         return responApi.v2respon400(req, res, 'Token dibutuhkan untuk kebutuhan authentikasi', null);
@@ -388,16 +412,16 @@ exports.getUser = async(req, res, next) => {
     token = token.replace("Bearer ", "");
     try {
 
-        const tokendb = await tokenModels.findOne({ where: { token: token } });
+        const tokendb = await tokenModels.findOne({ where: { TOKEN_VALUE: token } } );
         if (!tokendb) {
-            return responApi.v2respon400(req, res, "Invalid Token", null);
+             return responApi.v2respon401(req, res, null);
         } else{
             const decoded = jwt.verify(token, process.env.TOKEN_KEY);
             mUser.findOne({
                 where: {
                   id: decoded.user.id,
                 },
-                attributes: { exclude: ['password'] },
+                attributes: { exclude: ['U_PASSWORD', 'U_VERIFY_TOKEN'] },
               }).then((user) => {
                 if (user) {
                     return responApi.v2respon200(req, res, "Berhasil mendapatkan data user",user);
@@ -412,18 +436,17 @@ exports.getUser = async(req, res, next) => {
 
         
     } catch (error) {
+        console.log('Error '+funcName+' => '+error)
         return responApi.v2respon400(req, res, 'Internal Server Error', null);
     }
 
 }
 exports.allUser = async(req, res, next) => {
+    var funcName = "allUser"
  
     try {
 
         mUser.findAll({
-            where: {
-                role: 'user',
-            },
             attributes: { exclude: ['password'] },
           }).then((user) => {
             if (user) {
@@ -438,6 +461,7 @@ exports.allUser = async(req, res, next) => {
 
         
     } catch (error) {
+        console.log('Error '+funcName+' => '+error)
         return responApi.v2respon400(req, res, 'Internal Server Error', null);
     }
 
@@ -479,7 +503,7 @@ exports.updateUserDisplay = async(req, res, next) => {
 
         const tokendb = await tokenModels.findOne({ where: { token: token } });
         if (!tokendb) {
-            return responApi.v2respon400(req, res, "Invalid Token", null);
+             return responApi.v2respon401(req, res, null);
         } else{
             const decoded = jwt.verify(token, process.env.TOKEN_KEY);
             mUser.update(

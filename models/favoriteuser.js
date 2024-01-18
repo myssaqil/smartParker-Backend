@@ -14,11 +14,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   FavoriteUser.init({
-    u_id: DataTypes.INTEGER,
-    parker_id: DataTypes.INTEGER
+    U_ID: DataTypes.INTEGER,
+    DVC_ID: DataTypes.STRING,
+    PKG_HEAD_ID: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'FavoriteUser',
   });
+  FavoriteUser.associate = function (models) {
+    FavoriteUser.belongsTo(models.ParkingHeader, {
+      foreignKey: 'PKG_HEAD_ID',
+      as: 'ParkingHeader'
+    });
+  };
   return FavoriteUser;
 };

@@ -14,12 +14,59 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TransactionParking.init({
-    u_id: DataTypes.INTEGER,
-    parker_id: DataTypes.INTEGER,
-    info: DataTypes.STRING,
-    amount: DataTypes.INTEGER,
-    status: DataTypes.ENUM('ONGOING', 'FAILED', 'DONE'),
-    paymentType: DataTypes.ENUM('PAIDOFF', 'BILL'),
+    U_ID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    TRX_HEAD_ID: {
+      type: DataTypes.INTEGER
+    },
+    LICENSE_PLATE: {
+      type: DataTypes.STRING
+    },
+    PARKING_ID: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    DATE_START: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    DATE_END: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    DATE_USER_IN: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    DATE_USER_OUT: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    INFO: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    STATUS: {
+      type: DataTypes.ENUM('ONGOING',  'WAITINGP', 'FAILED', 'DONE'),
+      allowNull: false,
+      defaultValue: 'WAITINGP',
+    },
+    TYPE: {
+      type: DataTypes.ENUM('MOTORCYCLE', 'CAR'),
+      allowNull: false,
+    },
+    UPDATE_SLOT_START: {
+      type: DataTypes.ENUM('Y', 'N'),
+      allowNull: false,
+      defaultValue: 'N',
+    },
+    UPDATE_SLOT_END: {
+      type: DataTypes.ENUM('Y', 'N'),
+      allowNull: false,
+      defaultValue: 'N',
+    },
   }, {
     sequelize,
     modelName: 'TransactionParking',

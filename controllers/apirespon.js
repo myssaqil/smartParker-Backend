@@ -37,6 +37,15 @@ exports.v2respon400 = function (req, res, message, value) {
 
     return res.status(400).json(response);
 }
+exports.v2respon401 = function (req, res, value) {
+    var response = {
+        status: 401,
+        message: "Unauthorized - Harap login kembali",
+        payload: value,
+    }
+
+    return res.status(401).json(response);
+}
 
 exports.respon404 = (req, res, message,value) => {
     var response = {

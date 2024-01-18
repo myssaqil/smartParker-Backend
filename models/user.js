@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
   User.init({
     U_MAIL: DataTypes.STRING,
     U_PASSWORD: DataTypes.STRING,
-    U_IMG_BASE64:{
+    U_IMG:{
       type: DataTypes.STRING,
     },
     U_NAME: DataTypes.STRING,
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     U_VERIFY_TOKEN: DataTypes.STRING,
-    U_ROLE: DataTypes.ENUM('USER', 'PARKER', 'ADMIN', 'STAFF'),
+    U_ROLE: DataTypes.ENUM('USER', 'PARKER', 'OFFICER'),
     U_VERIFY_STATUS: DataTypes.ENUM('TRUE', 'FALSE'),
   }, {
     sequelize,

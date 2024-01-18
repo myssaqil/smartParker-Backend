@@ -9,10 +9,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      u_id: {
+      U_ID: {
         type: Sequelize.INTEGER
       },
-      parker_id: {
+      DVC_ID: {
+        type: Sequelize.STRING
+      },
+      PKG_HEAD_ID: {
         type: Sequelize.INTEGER
       },
       createdAt: {

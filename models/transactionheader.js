@@ -14,9 +14,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TransactionHeader.init({
-    transactionId: DataTypes.STRING,
-    transactionType: DataTypes.ENUM('BILLPAYMENT', 'PARKING', 'TOPUP'),
-    status: DataTypes.ENUM('FAILED', 'SUCCESS', 'PENDING'),
+    TRX_ID: DataTypes.STRING,
+    AMOUNT: DataTypes.INTEGER,
+    TRX_TYPE: DataTypes.ENUM('BILLPAYMENT', 'PARKING', 'TOPUP'),
+    STATUS: DataTypes.ENUM('FAILED','SUCCESS', 'PENDING', 'REFFUND', 'REFFUND-DONE'),
+    PAY: DataTypes.ENUM('CASH','PAYLATER', 'XENDIT'),
   }, {
     sequelize,
     modelName: 'TransactionHeader',
