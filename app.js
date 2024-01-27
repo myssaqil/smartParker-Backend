@@ -10,7 +10,7 @@ const io = socketIO(server);
 const path = require('path');
 const firebaseadmin = require('firebase-admin');
 const serviceAccount = require('./firebase-zendmind-ServiceAccountKey.json');
-const ipAddress = '192.168.0.118'; 
+const ipAddress = '192.168.246.80'; 
 
 
 
@@ -40,6 +40,7 @@ app.set('io', io);
 //Make Variable for route location
 const authRoute = require('./routes/all-access/auth')
 const parkerRoute = require('./routes/all-access/parker')
+const employeeHandleRoute = require('./routes/parker/employee')
 const vehicleRoute = require('./routes/user/vehicle')
 const userParkerTransactionRoute = require('./routes/user/parkingtrx')
 const userTopupTransactionRoute = require('./routes/user/topuptrx')
@@ -81,6 +82,10 @@ cron.schedule(cronSchedule, async () => {
 app.use('/api/auth', authRoute)
 app.use('/api/parking/location', parkerRoute)
 app.use('/api/user/vehicle', vehicleRoute)
+app.use('/api/parker/employee', employeeHandleRoute)
+
+
+//Unused
 app.use('/api/user/transaction/parker', userParkerTransactionRoute)
 app.use('/api/user/transaction/bill', userBillTransactionRoute)
 app.use('/api/user/transaction/topup', userTopupTransactionRoute)
@@ -130,6 +135,6 @@ io.on('disconnect', () => {
 
 
 
-server.listen(port,ipAddress, () => console.log(`Successfully to start server : http://${ipAddress}:${port}`)); //By Ip
-// server.listen(port, () => console.log(`Successfully to start server : http://127.0.0.1:${port}`)); localhost
+// server.listen(port,ipAddress, () => console.log(`Successfully to start server : http://${ipAddress}:${port}`)); //By Ip
+server.listen(port, () => console.log(`Successfully to start server : http://127.0.0.1:${port}`)); 
 // app.listen(port, () => console.log(`Successfully to start😱😱😱 : http://127.0.0.1:${port}, Lupakan titik koma`));

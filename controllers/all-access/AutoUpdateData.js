@@ -64,6 +64,8 @@ exports.AutoUpdate = async(io) => {
             }
           });
 
+
+          //SOCKET MAIN
           // Lakukan perhitungan sesuai kebutuhan
           const motorTotal = updatedParkingHeader.TOTAL_SLOT_MOTORCYCLE;
           const motorAvaliable = updatedParkingHeader.TOTAL_SLOT_MOTORCYCLE - updatedParkingHeader.TOTAL_USED_MOTORCYCLE;
@@ -72,7 +74,7 @@ exports.AutoUpdate = async(io) => {
 
           // console.log(`Emmit ${updatedParkingHeader.TOTAL_SLOT_CAR}`)
           // Emit informasi terkini ke socket.io atau lapisan lainnya
-           io.emit(`track-${data.PARKING_ID}`, {
+          await io.emit(`track-${data.PARKING_ID}`, {
             motorTotal: motorTotal,
             motorAvaliable: motorAvaliable,
             carTotal: carTotal,
@@ -128,6 +130,8 @@ exports.AutoUpdate = async(io) => {
             }
             
           )
+
+          //MAINAN SOCKET
           const updatedParkingHeaderEnd = await mParkingHeader.findOne({
             where:{
               id:dataEnd.PARKING_ID
@@ -144,7 +148,7 @@ exports.AutoUpdate = async(io) => {
           // console.log(`Emmit ${updatedParkingHeaderEnd.TOTAL_CAR}`)
           // Emit informasi terkini ke socket.io atau lapisan lainnya
           
-           io.emit(`track-${dataEnd.PARKING_ID}`, {
+          await io.emit(`track-${dataEnd.PARKING_ID}`, {
             motorTotal: motorTotalEnd,
             motorAvaliable: motorAvaliableEnd,
             carTotal: carTotalEnd,

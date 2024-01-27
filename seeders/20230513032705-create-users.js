@@ -127,7 +127,7 @@ module.exports = {
         U_NAME: 'Sutris',
         U_MAIL: 'sutrisni@gmail.com',
         U_PASSWORD: hashedPassword,
-        U_ROLE: 'parker',
+        U_ROLE: 'employee',
         U_BALANCE: 0,
         U_VERIFY_TOKEN: "",
         U_VERIFY_STATUS: "true",

@@ -18,7 +18,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
-    TRX_HEAD_ID: {
+  EMPLOYEE_ID: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+    },
+    TRX_ID: {
+      type: DataTypes.STRING
+    },
+    AMOUNT: {
       type: DataTypes.INTEGER
     },
     LICENSE_PLATE: {
@@ -55,6 +62,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     TYPE: {
       type: DataTypes.ENUM('MOTORCYCLE', 'CAR'),
+      allowNull: false,
+    },
+    PAY: {
+      type: DataTypes.ENUM('CASH', 'XENDIT'),
       allowNull: false,
     },
     UPDATE_SLOT_START: {

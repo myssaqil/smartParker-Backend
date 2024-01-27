@@ -12,16 +12,28 @@ module.exports = {
       U_ID: {
         type: Sequelize.INTEGER
       },
+      EMPLOYEE_ID: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+      },
       LICENSE_PLATE: {
         type: Sequelize.STRING
       },
-      TRX_HEAD_ID: {
+      TRX_ID: {
+        type: Sequelize.STRING,
+        unique: true,
+        allowNull: true,
+      },
+      AMOUNT: {
         type: Sequelize.INTEGER,
-        unique: true
+        allowNull: false,
       },
       PARKING_ID: {
         type: Sequelize.INTEGER,
         allowNull: false,
+      },
+      PAY:{
+        type: Sequelize.ENUM( 'CASH','XENDIT'),
       },
       INFO: {
         type: Sequelize.STRING

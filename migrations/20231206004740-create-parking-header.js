@@ -9,8 +9,11 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      LAND_CERTIFICATE: {
+        type: Sequelize.TEXT
+      },
       PKG_NAME: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       PKG_BANNER_BASE64: {
         type: Sequelize.TEXT,
@@ -36,10 +39,10 @@ module.exports = {
         type: Sequelize.STRING
       },
       LATITUDE: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       LONGITUDE: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       FEE: {
         type: Sequelize.INTEGER
@@ -67,7 +70,7 @@ module.exports = {
         defaultValue: 0
       },
       STATUS:{
-        type: Sequelize.ENUM('ACTIVE', 'NO'),
+        type: Sequelize.ENUM('ACTIVE', 'NO', 'PENDING'),
         defaultValue: 'ACTIVE'
       },
       createdAt: {

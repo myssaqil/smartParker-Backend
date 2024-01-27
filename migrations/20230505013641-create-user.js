@@ -28,7 +28,7 @@ module.exports = {
         defaultValue: 0,
       },
       U_ROLE:{
-        type: Sequelize.ENUM('USER', 'PARKER', 'ADMIN', 'STAFF'),
+        type: Sequelize.ENUM('USER', 'PARKER', 'ADMIN', 'STAFF', 'EMPLOYEE'),
         defaultValue: 'USER'
       },
       U_VERIFY_STATUS:{

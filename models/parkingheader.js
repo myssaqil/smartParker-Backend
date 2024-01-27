@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     PKG_OPEN_TIME: DataTypes.TIME,
     PKG_CLOSE_TIME: DataTypes.TIME,
     PKG_BANNER_BASE64: DataTypes.TEXT,
+    LAND_CERTIFICATE: DataTypes.TEXT,
     PKG_SUBLOCALITY: DataTypes.STRING,
     PKG_SUB_ADMINISTRATIVE_AREA: DataTypes.STRING,
     PKG_POSTAL_CODE: DataTypes.STRING,
@@ -30,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     TOTAL_USED_MOTORCYCLE: DataTypes.INTEGER,
     TOTAL_SLOT_CAR: DataTypes.INTEGER,
     TOTAL_USED_CAR: DataTypes.INTEGER,
-    STATUS: DataTypes.ENUM('ACTIVE', 'NO')
+    STATUS: DataTypes.ENUM('ACTIVE', 'NO',  'PENDING')
   }, {
     sequelize,
     modelName: 'ParkingHeader',

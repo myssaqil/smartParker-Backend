@@ -344,6 +344,7 @@ exports.adminPermission = async (req, res, next) => {
 
 exports.logOut = async(req, res, next) => {
     var funcName = "logOut"
+    console.log(funcName+'called')
     let token = req.body.token || req.query.token || req.headers["authorization"];
     if (!token) {
         return responApi.v2respon400(req, res, 'Token dibutuhkan untuk kebutuhan authentikasi', null);
