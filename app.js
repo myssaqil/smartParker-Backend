@@ -47,6 +47,7 @@ const userTopupTransactionRoute = require('./routes/user/topuptrx')
 const userBillTransactionRoute = require('./routes/user/billtrx')
 const userFavParkerRoute = require('./routes/user/favoriteparking')
 const userReportParkerRoute = require('./routes/user/reportparking')
+const userCashoutRoute = require('./routes/user/cashout')
 const cron = require('node-cron');
 const performAutoUpdate = require('./routes/all-access/update');
 
@@ -91,6 +92,8 @@ app.use('/api/user/transaction/bill', userBillTransactionRoute)
 app.use('/api/user/transaction/topup', userTopupTransactionRoute)
 app.use('/api/user/favorite', userFavParkerRoute)
 app.use('/api/user/parking-report', userReportParkerRoute)
+
+app.use('/api/user/cashout', userCashoutRoute)
 
 
 

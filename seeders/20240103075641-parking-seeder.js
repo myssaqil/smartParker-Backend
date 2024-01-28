@@ -88,7 +88,7 @@ module.exports = {
       },
       {
         id :5,
-        PKG_NAME: 'Yanto Parkir - Parkiran Motor SMK RUS',
+        PKG_NAME: 'Yanto - Parkiran Motor SMK RUS',
         U_ID: 6,
         PKG_STREET: 'Jl. Bae-Besito',
         PKG_BANNER_BASE64: "img/parking/parkiran-yanto.jpeg",
@@ -108,7 +108,7 @@ module.exports = {
       },
       {
         id :6,
-        PKG_NAME: 'PARKIR BAROKAH - Masjid Taqwa',
+        PKG_NAME: 'Masjid Taqwa',
         U_ID: 4,
         PKG_STREET: 'Jl. Rahtawu Raya',
         PKG_BANNER_BASE64: "img/parking/masjid-taqwa.jpg",
@@ -128,7 +128,7 @@ module.exports = {
       },
       {
         id :7,
-        PKG_NAME: 'PARKIRAN GUNTUR - Holy Tea Besito',
+        PKG_NAME: 'Holy Tea Besito',
         U_ID: 10,
         PKG_STREET: 'Jl. Besito Kauman',
         PKG_BANNER_BASE64: "img/parking/holytea.jpeg",
@@ -148,7 +148,7 @@ module.exports = {
       },
       {
         id :8,
-        PKG_NAME: 'Amanah Parkir - Toko Mebel Pak Joko',
+        PKG_NAME: 'Toko Mebel Pak Joko',
         U_ID: 3,
         PKG_STREET: 'Jl. Wonosari Semin',
         PKG_BANNER_BASE64: "img/parking/amanah-parkir.jpg",
@@ -168,7 +168,7 @@ module.exports = {
       },
       {
         id :9,
-        PKG_NAME: 'Fitri Parkir',
+        PKG_NAME: 'Pasar Tawangsari',
         U_ID: 5,
         PKG_STREET: 'Jl. Patimura No.76',
         PKG_BANNER_BASE64: "img/parking/fitri-parkir.jpg",
@@ -188,7 +188,7 @@ module.exports = {
       },
       {
         id :10,
-        PKG_NAME: 'Sodiq Parkir',
+        PKG_NAME: 'RM. Sumber Bestik',
         U_ID: 9,
         PKG_STREET: 'Jl. Honggowongso No.94',
         PKG_BANNER_BASE64: "sumber-bestik.jpg",
